@@ -1,7 +1,7 @@
 
 # sun
 
-  Simple little virtual DOM node builder for Preact & React.
+  Simple little virtual DOM node builder for Preact.
 
 ## Example
 

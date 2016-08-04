@@ -1,7 +1,7 @@
 {
   "name": "sun",
   "version": "1.0.0",
-  "description": "Tiny little VDOM node helper for Preact & React",
+  "description": "Tiny little VDOM node helper for Preact",
   "keywords": [
     "virtual",
     "dom",

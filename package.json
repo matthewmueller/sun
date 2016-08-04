@@ -1,0 +1,28 @@
+{
+  "name": "sun",
+  "version": "1.0.0",
+  "description": "Tiny little VDOM node helper for Preact & React",
+  "keywords": [
+    "virtual",
+    "dom",
+    "preact",
+    "hyperscript"
+  ],
+  "author": "Matthew Mueller <mattmuelle@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MatthewMueller/sun.git"
+  },
+  "dependencies": {
+    "html-element-attributes": "1.0.0",
+    "html-tag-names": "1.0.0",
+    "object-assign": "4.1.0",
+    "preact": "5.6.0",
+    "sliced": "1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "3.0.0",
+    "preact-render-to-string": "3.0.5"
+  },
+  "main": "index"
+}

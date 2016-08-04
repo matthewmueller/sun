@@ -24,7 +24,7 @@ render(App({ name: 'matt' }))
 
 - Functions for all valid HTML elements
 - Functions for all valid HTML attributes on each element
-- Supports custom attributes (e.g. `span({ custom: 'attribute' })('hi there!')`
+- Supports custom attributes (e.g. `span({ custom: 'attribute' })('hi there!')`)
 - Build to Preact
 
 ## Installation

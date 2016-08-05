@@ -27,6 +27,30 @@ describe('sun', function() {
     assert.equal(render(d), '<div fruit="orange"><span>hi</span><div world>world</div></div>')
   })
 
+  it('should support 1 sun child', function() {
+    let d = div(span('hi'))
+    assert.equal(render(d), '<div><span>hi</span></div>')
+  })
+
+  it('should stringify objects with toString()', function() {
+    let d = div(span({ toString: () => 'hi' }))
+    assert.equal(render(d), '<div><span>hi</span></div>')
+  })
+
+  it('should handle custom attributes with booleans', function() {
+    let d = div({ custom: true  })('hi')
+    assert.equal(render(d), '<div custom>hi</div>')
+  })
+
+  it('should handle empty tags with attributes', function() {
+    let d = div({ custom: true  })()
+    assert.equal(render(d), '<div custom></div>')
+  })
+
+  it('should handle empty tags', function() {
+    assert.equal(render(div()), '<div></div>')
+  })
+
   it('should handle classes with text', function() {
     let d = div.class('orange').id('hi')({ fruit: 'orange' })('hi')
     assert.equal(render(d), '<div class="orange" id="hi" fruit="orange">hi</div>')

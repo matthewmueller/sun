@@ -12,7 +12,9 @@ const { h } = require('preact')
  * Utils
  */
 
+const is_object = v => Object.prototype.toString.call(v) === '[object Object]'
 const is_string = v => typeof v === 'string'
+const has = (o, v) => o.hasOwnProperty(v)
 const is_array = v => Array.isArray(v)
 
 /**
@@ -26,11 +28,14 @@ module.exports = Tags.reduce((exports, name) => {
     let attrs = {}
 
     function tag (mixed) {
-      // text node or children?
-      if (is_string(mixed) || is_array(mixed)) {
-        return h(name, attrs, mixed)
-      } else if (arguments.length > 1) {
+      if (!arguments.length) {
+        return h(name, attrs)
+      } else if (mixed.nodeName || arguments.length > 1) {
         return h(name, attrs, slice(arguments))
+      } else if (is_array(mixed) || !is_object(mixed)) {
+        return h(name, attrs, mixed)
+      } else if (has(mixed, 'toString')) {
+        return h(name, attrs, String(mixed))
       }
 
       // attributes
@@ -40,6 +45,7 @@ module.exports = Tags.reduce((exports, name) => {
 
     // attach instance functions
     attributes.forEach(attr => tag[attr] = IAttr(tag, attrs, attr))
+    tag.toJSON = () => h(name, attrs)
 
     // create an instance of the tag
     return tag.apply(null, arguments)
@@ -47,6 +53,7 @@ module.exports = Tags.reduce((exports, name) => {
 
   // attach static functions
   attributes.forEach(attr => Tag[attr] = Attr(Tag, attr))
+  Tag.toJSON = () => h(name)
 
   exports[name] = Tag
   return exports

@@ -13,16 +13,43 @@ const { h } = require('preact')
  */
 
 const is_object = v => Object.prototype.toString.call(v) === '[object Object]'
-const is_string = v => typeof v === 'string'
 const has = (o, v) => o.hasOwnProperty(v)
 const is_array = v => Array.isArray(v)
+
+/**
+ * Attach events
+ *
+ * Pulled from: https://facebook.github.io/react/docs/events.html
+ */
+
+const Events = [
+  'onCopy', 'onCut', 'onPaste',
+  'onCompositionEnd', 'onCompositionStart', 'onCompositionUpdate',
+  'onKeyDown', 'onKeyPress', 'onKeyUp',
+  'onFocus', 'onBlur',
+  'onChange', 'onInput', 'onSubmit',
+  'onClick', 'onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit',
+  'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave',
+  'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp',
+  'onSelect',
+  'onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart',
+  'onScroll',
+  'onWheel',
+  'onAbort', 'onCanPlay', 'onCanPlayThrough', 'onDurationChange', 'onEmptied', 'onEncrypted',
+  'onEnded', 'onError', 'onLoadedData', 'onLoadedMetadata', 'onLoadStart', 'onPause', 'onPlay',
+  'onPlaying', 'onProgress', 'onRateChange', 'onSeeked', 'onSeeking', 'onStalled', 'onSuspend',
+  'onTimeUpdate', 'onVolumeChange', 'onWaiting',
+  'onLoad',
+  'onAnimationStart', 'onAnimationEnd', 'onAnimationIteration',
+  'onTransitionEnd'
+]
 
 /**
  * Create functions from all the tags
  */
 
 module.exports = Tags.reduce((exports, name) => {
-  let attributes = Attributes['*'].concat(Attributes[name])
+  let attributes = Attributes['*'].concat(Events).concat(Attributes[name])
 
   function Tag () {
     let attrs = {}
@@ -63,7 +90,7 @@ module.exports = Tags.reduce((exports, name) => {
  * Attribute builder function for all tags
  */
 
-function Attr(fn, attr) {
+function Attr (fn, attr) {
   return function (value) {
     return fn({ [attr]: value })
   }
@@ -73,7 +100,7 @@ function Attr(fn, attr) {
  * Attribute builder for all tag instances
  */
 
-function IAttr(fn, attrs, attr) {
+function IAttr (fn, attrs, attr) {
   return function (value) {
     attrs[attr] = value
     return fn

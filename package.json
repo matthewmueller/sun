@@ -21,8 +21,25 @@
     "sliced": "1.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "6.1.2",
     "mocha": "3.0.0",
-    "preact-render-to-string": "3.0.5"
+    "preact-render-to-string": "3.0.5",
+    "snazzy": "4.0.1"
   },
-  "main": "index"
+  "main": "index",
+  "scripts": {
+    "lint": "snazzy",
+    "pretest": "npm run lint"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach"
+    ]
+  }
 }

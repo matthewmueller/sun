@@ -2,8 +2,8 @@
  * Module Dependencies
  */
 
+let { div, span, strong, component } = require('..')
 let render = require('preact-render-to-string')
-let { div , span , strong } = require('..')
 let assert = require('assert')
 
 describe('sun', function () {
@@ -37,12 +37,12 @@ describe('sun', function () {
   })
 
   it('should handle custom attributes with booleans', function () {
-    let d = div({ custom: true  })('hi')
+    let d = div({ custom: true })('hi')
     assert.equal(render(d), '<div custom>hi</div>')
   })
 
   it('should handle empty tags with attributes', function () {
-    let d = div({ custom: true  })()
+    let d = div({ custom: true })()
     assert.equal(render(d), '<div custom></div>')
   })
 
@@ -79,5 +79,20 @@ describe('sun', function () {
     let vnode = div.onClick(a).onMouseDown(b)()
     assert.equal(vnode.attributes.onClick.toString(), a.toString())
     assert.equal(vnode.attributes.onMouseDown.toString(), b.toString())
+  })
+
+  it('should support high order component functions', function() {
+    let styling = component(function ({ class: cls, children }) {
+      assert.equal(cls, 'whatever')
+      return children[0]
+    })
+
+    let s = styling.class('whatever')(
+      div.class('wahtever')(
+        strong('hi')
+      )
+    )
+
+    assert.equal(render(s), '<div class="wahtever"><strong>hi</strong></div>')
   })
 })

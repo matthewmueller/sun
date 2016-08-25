@@ -25,12 +25,35 @@ render(App({ name: 'matt' }))
 - Functions for all valid HTML elements
 - Functions for all valid HTML attributes on each element
 - Supports custom attributes (e.g. `span({ custom: 'attribute' })('hi there!')`)
-- Build to Preact
+- Proudly built for [Preact](https://github.com/developit/preact)
 
 ## Installation
 
 ```bash
 npm install sun
+```
+
+## High-Order Components
+
+High-Order Components are a powerful technique for modifying
+children on the fly. Here's how you can do it with sun.
+
+```js
+let render = require('preact-render-to-string')
+let { component } = require('sun')
+
+let styling = component(function ({ class: cls, children }) {
+  assert.equal(cls, 'whatever')
+  return children[0]
+})
+
+let app = styling.class('whatever')(
+  div.class('wahtever')(
+    strong('hi')
+  )
+)
+
+assert.equal(render(app), '<div class="wahtever"><strong>hi</strong></div>')
 ```
 
 ## Where you can Help

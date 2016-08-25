@@ -29,7 +29,8 @@
   "main": "index",
   "scripts": {
     "lint": "snazzy",
-    "pretest": "npm run lint"
+    "pretest": "npm run lint",
+    "test": "mocha"
   },
   "standard": {
     "parser": "babel-eslint",

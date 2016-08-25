@@ -12,9 +12,9 @@ const { h } = require('preact')
  * Utils
  */
 
-const is_object = v => Object.prototype.toString.call(v) === '[object Object]'
+const isObject = v => Object.prototype.toString.call(v) === '[object Object]'
 const has = (o, v) => o.hasOwnProperty(v)
-const is_array = v => Array.isArray(v)
+const isArray = v => Array.isArray(v)
 
 /**
  * Attach events
@@ -48,7 +48,19 @@ const Events = [
  * Create functions from all the tags
  */
 
-module.exports = Tags.reduce((exports, name) => {
+Tags.forEach(name => { exports[name] = Component(name) })
+
+/**
+ * Create a custom component
+ */
+
+exports.component = Component
+
+/**
+ * Create a component
+ */
+
+function Component (name) {
   let attributes = Attributes['*'].concat(Events).concat(Attributes[name])
 
   function Tag () {
@@ -59,7 +71,7 @@ module.exports = Tags.reduce((exports, name) => {
         return h(name, attrs)
       } else if (mixed.nodeName || arguments.length > 1) {
         return h(name, attrs, slice(arguments))
-      } else if (is_array(mixed) || !is_object(mixed)) {
+      } else if (isArray(mixed) || !isObject(mixed)) {
         return h(name, attrs, mixed)
       } else if (has(mixed, 'toString')) {
         return h(name, attrs, String(mixed))
@@ -71,7 +83,7 @@ module.exports = Tags.reduce((exports, name) => {
     }
 
     // attach instance functions
-    attributes.forEach(attr => tag[attr] = IAttr(tag, attrs, attr))
+    attributes.forEach(attr => { tag[attr] = IAttr(tag, attrs, attr) })
     tag.toJSON = () => h(name, attrs)
 
     // create an instance of the tag
@@ -79,12 +91,11 @@ module.exports = Tags.reduce((exports, name) => {
   }
 
   // attach static functions
-  attributes.forEach(attr => Tag[attr] = Attr(Tag, attr))
+  attributes.forEach(attr => { Tag[attr] = Attr(Tag, attr) })
   Tag.toJSON = () => h(name)
 
-  exports[name] = Tag
-  return exports
-}, {})
+  return Tag
+}
 
 /**
  * Attribute builder function for all tags

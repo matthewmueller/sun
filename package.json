@@ -14,6 +14,7 @@
     "url": "git://github.com/MatthewMueller/sun.git"
   },
   "dependencies": {
+    "flatten": "1.0.2",
     "html-element-attributes": "1.0.0",
     "html-tag-names": "1.0.0",
     "object-assign": "4.1.0",

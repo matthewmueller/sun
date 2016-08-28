@@ -5,6 +5,7 @@
 const Attributes = require('html-element-attributes')
 const assign = require('object-assign')
 const Tags = require('html-tag-names')
+const flatten = require('flatten')
 const slice = require('sliced')
 const { h } = require('preact')
 
@@ -70,8 +71,10 @@ function Component (name) {
       if (!arguments.length) {
         return h(name, attrs)
       } else if (mixed.nodeName || arguments.length > 1) {
-        return h(name, attrs, slice(arguments))
-      } else if (isArray(mixed) || !isObject(mixed)) {
+        return h(name, attrs, flatten(slice(arguments)))
+      } else if (isArray(mixed)) {
+        return h(name, attrs, flatten(mixed))
+      } else if (!isObject(mixed)) {
         return h(name, attrs, mixed)
       } else if (has(mixed, 'toString')) {
         return h(name, attrs, String(mixed))

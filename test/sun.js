@@ -81,7 +81,7 @@ describe('sun', function () {
     assert.equal(vnode.attributes.onMouseDown.toString(), b.toString())
   })
 
-  it('should support high order component functions', function() {
+  it('should support high order component functions', function () {
     let styling = component(function ({ class: cls, children }) {
       assert.equal(cls, 'whatever')
       return children[0]
@@ -94,5 +94,14 @@ describe('sun', function () {
     )
 
     assert.equal(render(s), '<div class="wahtever"><strong>hi</strong></div>')
+  })
+
+  it('should support arrays of arrays', function () {
+    let todos = [ { title: 'a' }, { title: 'b' } ]
+    let d = div({ fruit: 'orange' })(
+      span('hi'),
+      todos.map(todo => strong(todo.title))
+    )
+    assert.equal(render(d), '<div fruit="orange"><span>hi</span><strong>a</strong><strong>b</strong></div>')
   })
 })

@@ -104,4 +104,9 @@ describe('sun', function () {
     )
     assert.equal(render(d), '<div fruit="orange"><span>hi</span><strong>a</strong><strong>b</strong></div>')
   })
+
+  it('should support a list of classes', function () {
+    let d = div.class(true && 'a', false && 'b', 'c' || 'd')()
+    assert.equal(render(d), '<div class="a c"></div>')
+  })
 })

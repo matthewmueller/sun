@@ -6,6 +6,7 @@ const Attributes = require('html-element-attributes')
 const assign = require('object-assign')
 const Tags = require('html-tag-names')
 const flatten = require('flatten')
+const sliced = require('sliced')
 const slice = require('sliced')
 const { h } = require('preact')
 
@@ -16,6 +17,7 @@ const { h } = require('preact')
 const isObject = v => Object.prototype.toString.call(v) === '[object Object]'
 const has = (o, v) => o.hasOwnProperty(v)
 const isArray = v => Array.isArray(v)
+const truthy = (v) => !!v
 
 /**
  * Attach events
@@ -105,7 +107,8 @@ function Component (name) {
  */
 
 function Attr (fn, attr) {
-  return function (value) {
+  return function () {
+    let value = sliced(arguments).filter(truthy).join(' ')
     return fn({ [attr]: value })
   }
 }
@@ -115,7 +118,8 @@ function Attr (fn, attr) {
  */
 
 function IAttr (fn, attrs, attr) {
-  return function (value) {
+  return function () {
+    let value = sliced(arguments).filter(truthy).join(' ')
     attrs[attr] = value
     return fn
   }

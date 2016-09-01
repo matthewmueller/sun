@@ -15,6 +15,7 @@ const { h } = require('preact')
  */
 
 const isObject = v => Object.prototype.toString.call(v) === '[object Object]'
+const isClass = (v) => /class(name)?/i.test(v)
 const has = (o, v) => o.hasOwnProperty(v)
 const isArray = v => Array.isArray(v)
 const truthy = (v) => !!v
@@ -107,9 +108,12 @@ function Component (name) {
  */
 
 function Attr (fn, attr) {
-  return function () {
-    let value = sliced(arguments).filter(truthy).join(' ')
-    return fn({ [attr]: value })
+  return function (value) {
+    let attrs = {}
+    attrs[attr] = isClass(attr)
+      ? sliced(arguments).filter(truthy).join(' ')
+      : value
+    return fn(attrs)
   }
 }
 
@@ -118,9 +122,10 @@ function Attr (fn, attr) {
  */
 
 function IAttr (fn, attrs, attr) {
-  return function () {
-    let value = sliced(arguments).filter(truthy).join(' ')
-    attrs[attr] = value
+  return function (value) {
+    attrs[attr] = isClass(attr)
+      ? sliced(arguments).filter(truthy).join(' ')
+      : value
     return fn
   }
 }

@@ -109,4 +109,11 @@ describe('sun', function () {
     let d = div.class(true && 'a', false && 'b', 'c' || 'd')()
     assert.equal(render(d), '<div class="a c"></div>')
   })
+
+  it('should support passing functions in', function() {
+    let fn = function () {}
+    let d = div.onClick(fn)()
+    assert.equal(d.attributes.onClick, fn)
+    assert.equal(typeof d.attributes.onClick, 'function')
+  })
 })

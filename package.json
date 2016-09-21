@@ -18,14 +18,14 @@
     "html-element-attributes": "1.0.0",
     "html-tag-names": "1.0.0",
     "object-assign": "4.1.0",
-    "preact": "5.6.0",
+    "preact": "6.0.2",
     "sliced": "1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "6.1.2",
-    "mocha": "3.0.0",
-    "preact-render-to-string": "3.0.5",
-    "snazzy": "4.0.1"
+    "mocha": "3.0.2",
+    "preact-render-to-string": "3.1.1",
+    "snazzy": "5.0.0"
   },
   "main": "index",
   "scripts": {

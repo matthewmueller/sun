@@ -5,6 +5,7 @@
 let { div, span, strong, component } = require('..')
 let render = require('preact-render-to-string')
 let assert = require('assert')
+let { h } = require('preact')
 
 describe('sun', function () {
   it('should work with basic text', function () {
@@ -115,5 +116,19 @@ describe('sun', function () {
     let d = div.onClick(fn)()
     assert.equal(d.attributes.onClick, fn)
     assert.equal(typeof d.attributes.onClick, 'function')
+  })
+
+  it('should work a vnode child', () => {
+    let d = div(h('h2', { class: 'blue' }, ['hi there!']))
+    assert.equal(render(d), '<div><h2 class="blue">hi there!</h2></div>')
+  })
+
+  it('should work vnode children', () => {
+    let d = div([
+      h('h2', { class: 'blue' }, ['2']),
+      h('h3', { class: 'blue' }, ['3'])
+    ])
+
+    assert.equal(render(d), '<div><h2 class="blue">2</h2><h3 class="blue">3</h3></div>')
   })
 })

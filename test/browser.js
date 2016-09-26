@@ -110,7 +110,7 @@ describe('sun', function () {
     assert.equal(r(d), '<div class="a c"></div>')
   })
 
-  it('should support passing functions in', function() {
+  it('should support passing functions in', function () {
     let fn = function () {}
     let d = div.onClick(fn)()
     assert.equal(d.attributes.onClick, fn)
@@ -124,11 +124,13 @@ describe('sun', function () {
 
   it('should work vnode children', () => {
     let d = div([
-      h('h2', { class: 'blue' }, ['2']),
-      h('h3', { class: 'blue' }, ['3'])
+      h('h2', { class: 'blue' }, [
+        h('strong', {}, [
+          'hi there!'
+        ])
+      ])
     ])
-
-    assert.equal(r(d), '<div><h2 class="blue">2</h2><h3 class="blue">3</h3></div>')
+    assert.equal(r(d), '<div><h2 class="blue"><strong>hi there!</strong></h2></div>')
   })
 })
 

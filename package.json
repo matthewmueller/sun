@@ -23,15 +23,19 @@
   },
   "devDependencies": {
     "babel-eslint": "6.1.2",
+    "devtool": "2.2.0",
     "mocha": "3.0.2",
     "preact-render-to-string": "3.1.1",
     "snazzy": "5.0.0"
+  },
+  "peerDependencies": {
+    "preact": "*"
   },
   "main": "index",
   "scripts": {
     "lint": "snazzy",
     "pretest": "npm run lint",
-    "test": "mocha"
+    "test": "make test"
   },
   "standard": {
     "parser": "babel-eslint",

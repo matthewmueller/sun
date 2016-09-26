@@ -1,3 +1,11 @@
+
+1.0.8 / 2016-09-26
+==================
+
+  * make preact a peer dependency
+  * add browser tests
+  * add a few more tests
+
 1.0.7 / 2016-09-21
 ==================
 

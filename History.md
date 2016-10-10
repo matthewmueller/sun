@@ -1,4 +1,9 @@
 
+1.1.0 / 2016-10-10
+==================
+
+  * <html> now passes through children on the client, but still renders on the server. also added onMount and onUnmount attributes
+
 1.0.9 / 2016-09-26
 ==================
 

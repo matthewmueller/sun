@@ -11,6 +11,12 @@ const slice = require('sliced')
 const { h } = require('preact')
 
 /**
+ * isBrowser
+ */
+
+const isBrowser = typeof window !== 'undefined'
+
+/**
  * Utils
  */
 
@@ -27,6 +33,7 @@ const truthy = (v) => !!v
  */
 
 const Events = [
+  'onMount', 'onUnmount',
   'onCopy', 'onCut', 'onPaste',
   'onCompositionEnd', 'onCompositionStart', 'onCompositionUpdate',
   'onKeyDown', 'onKeyPress', 'onKeyUp',
@@ -59,6 +66,24 @@ Tags.forEach(name => { exports[name] = Component(name) })
  */
 
 exports.component = Component
+
+/**
+ * Override HTML
+ */
+
+const html = exports.html
+exports.html = function (mixed) {
+  if (!isBrowser) {
+    return html.apply(html, arguments)
+  } else if (mixed.nodeName || arguments.length > 1) {
+    let nodes = flatten(slice(arguments))
+    let body = nodes.filter(function (node) { return node.nodeName === 'body' })[0]
+    if (!body || !body.children) return html.apply(html, arguments)
+    else return body.children[0]
+  } else {
+    return html.apply(html, arguments)
+  }
+}
 
 /**
  * Create a component

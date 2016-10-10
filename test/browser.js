@@ -2,7 +2,7 @@
  * Module Dependencies
  */
 
-let { div, span, strong, component } = require('..')
+let { div, span, strong, component, html, head, body, meta, link, title } = require('..')
 let { h, render } = require('preact')
 let assert = require('assert')
 
@@ -131,6 +131,26 @@ describe('sun', function () {
       ])
     ])
     assert.equal(r(d), '<div><h2 class="blue"><strong>hi there!</strong></h2></div>')
+  })
+
+  it('should ignore html, head & body tags', () => {
+    let d = html(
+      head(
+        title('hello world!'),
+        meta({ name: 'description' }).content('some description')(),
+        link.href('index.css').rel('stylesheet')()
+      ),
+      body(
+        div('hello world!')
+      )
+    )
+
+    assert.equal(r(d), '<div>hello world!</div>')
+  })
+
+  it('should support mounts', () => {
+    assert.equal(typeof div.onMount, 'function')
+    assert.equal(typeof div.onUnmount, 'function')
   })
 })
 

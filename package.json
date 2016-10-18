@@ -15,15 +15,16 @@
   },
   "dependencies": {
     "flatten": "1.0.2",
-    "html-element-attributes": "1.0.0",
-    "html-tag-names": "1.0.0",
     "object-assign": "4.1.0",
     "sliced": "1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "devtool": "2.2.0",
+    "lodash.flatten": "4.4.0",
+    "lodash.uniq": "4.5.0",
     "mocha": "3.0.2",
+    "object-values": "1.0.0",
     "preact-render-to-string": "3.1.1",
     "snazzy": "5.0.0"
   },

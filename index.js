@@ -2,13 +2,29 @@
  * Module Dependencies
  */
 
-const Attributes = require('html-element-attributes')
 const assign = require('object-assign')
-const Tags = require('html-tag-names')
 const flatten = require('flatten')
 const sliced = require('sliced')
 const slice = require('sliced')
 const { h } = require('preact')
+
+/**
+ * Decifer the elements
+ */
+
+const [
+  tags,
+  index,
+  all,
+  attributes
+] = require('./elements.json')
+
+const Attributes = index.reduce((attrs, keys, i) => {
+  const tag = tags[i]
+  if (keys) attrs[tag] = all.concat(keys.map(k => attributes[k]))
+  else attrs[tag] = all
+  return attrs
+}, {})
 
 /**
  * isBrowser
@@ -27,39 +43,10 @@ const isArray = v => Array.isArray(v)
 const truthy = (v) => !!v
 
 /**
- * Attach events
- *
- * Pulled from: https://facebook.github.io/react/docs/events.html
- */
-
-const Events = [
-  'onMount', 'onUnmount',
-  'onCopy', 'onCut', 'onPaste',
-  'onCompositionEnd', 'onCompositionStart', 'onCompositionUpdate',
-  'onKeyDown', 'onKeyPress', 'onKeyUp',
-  'onFocus', 'onBlur',
-  'onChange', 'onInput', 'onSubmit',
-  'onClick', 'onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit',
-  'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave',
-  'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp',
-  'onSelect',
-  'onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart',
-  'onScroll',
-  'onWheel',
-  'onAbort', 'onCanPlay', 'onCanPlayThrough', 'onDurationChange', 'onEmptied', 'onEncrypted',
-  'onEnded', 'onError', 'onLoadedData', 'onLoadedMetadata', 'onLoadStart', 'onPause', 'onPlay',
-  'onPlaying', 'onProgress', 'onRateChange', 'onSeeked', 'onSeeking', 'onStalled', 'onSuspend',
-  'onTimeUpdate', 'onVolumeChange', 'onWaiting',
-  'onLoad',
-  'onAnimationStart', 'onAnimationEnd', 'onAnimationIteration',
-  'onTransitionEnd'
-]
-
-/**
  * Create functions from all the tags
  */
 
-Tags.forEach(name => { exports[name] = Component(name) })
+tags.forEach(name => { exports[name] = Component(name) })
 
 /**
  * Create a custom component
@@ -90,7 +77,7 @@ exports.html = function (mixed) {
  */
 
 function Component (name) {
-  let attributes = Attributes['*'].concat(Events).concat(Attributes[name])
+  let attributes = [].concat(Attributes[name] || all)
 
   function Tag () {
     let attrs = {}

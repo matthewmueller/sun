@@ -1,4 +1,9 @@
 
+1.1.1 / 2016-10-18
+==================
+
+  * greatly compress the html tags and attributes. build them on the client
+
 1.1.0 / 2016-10-10
 ==================
 

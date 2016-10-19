@@ -151,4 +151,8 @@ describe('sun', function () {
     assert.equal(typeof div.onMount, 'function')
     assert.equal(typeof div.onUnmount, 'function')
   })
+
+  it('should support keys', () => {
+    assert.equal(typeof div.key, 'function')
+  })
 })

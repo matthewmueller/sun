@@ -21,6 +21,8 @@
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "devtool": "2.2.0",
+    "html-element-attributes": "1.0.0",
+    "html-tag-names": "1.0.0",
     "lodash.flatten": "4.4.0",
     "lodash.uniq": "4.5.0",
     "mocha": "3.0.2",

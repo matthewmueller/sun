@@ -1,8 +1,12 @@
+const Attributes = require('html-element-attributes')
+const Tags = require('html-tag-names')
 const flatten = require('lodash.flatten')
 const values = require('object-values')
 const uniq = require('lodash.uniq')
+const fs = require('fs')
 
 const Events = [
+  'key',
   'onMount', 'onUnmount',
   'onCopy', 'onCut', 'onPaste',
   'onCompositionEnd', 'onCompositionStart', 'onCompositionUpdate',
@@ -45,4 +49,4 @@ let map = tags.map(function (tag) {
 // console.log(tags.indexOf('meta'))
 // console.log(map[84].map(i => attributes[i]))
 // console.log(map)
-console.log(JSON.stringify([ tags, map, all, attributes]))
+fs.writeFileSync(__dirname + '/elements.json', JSON.stringify([ tags, map, all, attributes]))

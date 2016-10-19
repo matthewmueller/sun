@@ -47,6 +47,31 @@ describe('sun', function () {
     assert.equal(render(d), '<div custom></div>')
   })
 
+  it('should work with undefined', () => {
+    let d = div(undefined)
+    assert.equal(render(d), '<div></div>')
+  })
+
+  it('should work with false', () => {
+    let d = div(false)
+    assert.equal(render(d), '<div></div>')
+  })
+
+  it('should work with 0', () => {
+    let d = div(0)
+    assert.equal(render(d), '<div>0</div>')
+  })
+
+  it('should work with null', () => {
+    let d = div(null)
+    assert.equal(render(d), '<div></div>')
+  })
+
+  it('should work with empty strings', () => {
+    let d = div('')
+    assert.equal(render(d), '<div></div>')
+  })
+
   it('should handle empty tags', function () {
     assert.equal(render(div()), '<div></div>')
   })

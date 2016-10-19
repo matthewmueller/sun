@@ -26,6 +26,31 @@ describe('sun', function () {
     assert.equal(r(d), '<div fruit="orange"><span>hi</span><div world="true">world</div></div>')
   })
 
+  it('should work with undefined', () => {
+    let d = div(undefined)
+    assert.equal(r(d), '<div></div>')
+  })
+
+  it('should work with false', () => {
+    let d = div(false)
+    assert.equal(r(d), '<div></div>')
+  })
+
+  it('should work with 0', () => {
+    let d = div(0)
+    assert.equal(r(d), '<div>0</div>')
+  })
+
+  it('should work with null', () => {
+    let d = div(null)
+    assert.equal(r(d), '<div></div>')
+  })
+
+  it('should work with empty strings', () => {
+    let d = div('')
+    assert.equal(r(d), '<div></div>')
+  })
+
   it('should support 1 sun child', function () {
     let d = div(span('hi'))
     assert.equal(r(d), '<div><span>hi</span></div>')

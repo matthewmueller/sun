@@ -83,7 +83,7 @@ function Component (name) {
     let attrs = {}
 
     function tag (mixed) {
-      if (!arguments.length) {
+      if (!arguments.length || (!mixed && mixed !== 0)) {
         return h(name, attrs)
       } else if (mixed.nodeName || arguments.length > 1) {
         return h(name, attrs, flatten(slice(arguments)))

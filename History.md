@@ -1,4 +1,9 @@
 
+1.1.3 / 2016-10-19
+==================
+
+  * fix for undefined, falsey, null and empty string children
+
 1.1.2 / 2016-10-19
 ==================
 

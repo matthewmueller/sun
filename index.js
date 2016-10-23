@@ -123,7 +123,7 @@ function Attr (fn, attr) {
   return function (value) {
     let attrs = {}
     attrs[attr] = isClass(attr)
-      ? sliced(arguments).filter(truthy).join(' ')
+      ? flatten(sliced(arguments)).filter(truthy).join(' ')
       : value
     return fn(attrs)
   }
@@ -136,7 +136,7 @@ function Attr (fn, attr) {
 function IAttr (fn, attrs, attr) {
   return function (value) {
     attrs[attr] = isClass(attr)
-      ? sliced(arguments).filter(truthy).join(' ')
+      ? flatten(sliced(arguments)).filter(truthy).join(' ')
       : value
     return fn
   }

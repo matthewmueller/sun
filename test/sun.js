@@ -136,6 +136,11 @@ describe('sun', function () {
     assert.equal(render(d), '<div class="a c"></div>')
   })
 
+  it('should support passing an array of classes', () => {
+    let d = div.class(['a', false], 'c')()
+    assert.equal(render(d), '<div class="a c"></div>')
+  })
+
   it('should support passing functions in', function () {
     let fn = function () {}
     let d = div.onClick(fn)()
